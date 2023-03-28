@@ -39,7 +39,7 @@ const setProject = async (req, res) => {
       return res.send(error(401, "Insertion failed"));
     }
 
-    return res.send(success(201, project));
+    return res.send(success(201, project.projectName));
   } catch (err) {
     return res.send(error(500, err.message));
   }
@@ -63,7 +63,7 @@ const deleteProject = async (req, res) => {
     if (!project) {
       return res.send(error(400, "Project does not exits"));
     }
-    return res.send(success(200, "Data deleted"));
+    return res.send(success(200, "Project Deleted"));
   } catch (err) {
     return res.send(error(500, err.message));
   }
@@ -102,15 +102,28 @@ const updateProject = async (req, res) => {
     if (!project) {
       return res.send(error(400, "Update Failed"));
     }
-    return res.send(success(200, "Update Success"));
+    return res.send(success(200, "Update Successfully"));
   } catch (err) {
     return res.send(error(500, err.message));
   }
 };
+const singleProject = async (req, res) => {
+  try {
+    const { id } = req.body;
 
+    const project = await Project.findById(id);
+    if (!project) {
+      return res.send(error(400, "Project Not Found"));
+    }
+    return res.send(success(200, project));
+  } catch (err) {
+    return res.send(error(500, err.message));
+  }
+};
 module.exports = {
   setProject,
   getProject,
   deleteProject,
   updateProject,
+  singleProject,
 };

@@ -5,11 +5,11 @@ const success = (statusCode, result) => {
     result,
   };
 };
-const error = (statusCode, messsage) => {
+const error = (statusCode, message) => {
   return {
     status: "error",
     statusCode,
-    messsage,
+    message,
   };
 };
 
